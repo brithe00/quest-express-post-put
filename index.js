@@ -9,6 +9,27 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+app.get('/superMiddleware', (req, res, next) => {
+  console.log('hello middleware');
+  next();
+}, (req, res, next) => {
+  res.send('hello world');
+});
+
+/*
+router.get('/superMiddleware', (req, res, next) => {
+  if(isConnected()){ // fonction fictive pour vérifier si la personne est connectée
+      return next(); // Permet de passer à la fonction suivante
+  } else {
+      return res.redirect('/login'); // redirige l'utilisateur sans passer dans la fonction suivante
+  }
+}, (req, res, next) => {
+  res.render('monAdmin');
+});
+*/
+
+
 // respond to requests on `/api/users`
 app.get('/api/users', (req, res) => {
   // send an SQL query to get all users
